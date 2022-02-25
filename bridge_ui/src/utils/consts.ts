@@ -136,6 +136,10 @@ export const CHAINS: ChainInfo[] =
           logo: terraIcon,
         },
       ];
+export const CHAIN_NAMES_ENUM = CHAINS.reduce<String[]>((accum, chain) => {
+  accum[chain.id] = chain.name
+  return accum
+}, [])
 export const BETA_CHAINS: ChainId[] = CLUSTER === "mainnet" ? [] : [];
 export const CHAINS_WITH_NFT_SUPPORT = CHAINS.filter(
   ({ id }) =>

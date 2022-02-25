@@ -12,6 +12,7 @@ import numeral from "numeral";
 import { useMemo } from "react";
 import useTVL from "../../hooks/useTVL";
 import { COLORS } from "../../muiTheme";
+import { CHAIN_NAMES_ENUM } from "../../utils/consts";
 import HeaderText from "../HeaderText";
 import SmartAddress from "../SmartAddress";
 import { balancePretty } from "../TokenSelectors/TokenPicker";
@@ -138,7 +139,11 @@ const StatsRoot: React.FC<any> = () => {
           </div>
         ),
       },
-      { Header: "Chain", accessor: "originChain" },
+      {
+        Header: "Chain",
+        accessor: "originChain",
+        Cell: (value: any) => CHAIN_NAMES_ENUM[Number(value.row?.original?.originChainId)] || value.row?.original?.originChainId
+      },
       {
         Header: "Amount",
         accessor: "amount",
