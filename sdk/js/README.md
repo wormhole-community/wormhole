@@ -88,6 +88,19 @@ await createWrappedOnEth(ETH_TOKEN_BRIDGE_ADDRESS, signer, signedVAA);
 #### Ethereum to Solana
 
 ```js
+// determine destination address - an associated token account
+const solanaMintKey = new PublicKey(
+  (await getForeignAssetSolana(
+    connection,
+    SOLANA_TOKEN_BRIDGE_ADDRESS,
+    CHAIN_ID_ETH,
+    hexToUint8Array(nativeToHexString(tokenAddress, CHAIN_ID_ETH) || "")
+  )) || ""
+);
+const recipientAddress = await getAssociatedTokenAddress(
+  solanaMintKey,
+  walletAddress
+);
 // Submit transaction - results in a Wormhole message being published
 const receipt = await attestFromEth(
   ETH_TOKEN_BRIDGE_ADDRESS,
