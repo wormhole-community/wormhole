@@ -1,5 +1,14 @@
 name: Build and Deploy
-on: [push]
+on:
+  push:
+    branches:
+      - dev.v2
+      
+env:
+  REACT_APP_CLUSTER: ${{ secrets.CLUSTER }}
+  REACT_APP_COVALENT_API_KEY: ${{ secrets.COVALENT_API_KEY }}
+  REACT_APP_SOLANA_API_URL: https://wormhole.rpcpool.com/      
+      
 jobs:
   build-and-deploy:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
